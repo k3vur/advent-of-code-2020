@@ -327,14 +327,9 @@ type Row = String
 type Map = [Row]
 type Slope = Int
 
-tree :: Char
-tree = '#'
-
-point :: Slope -> Int -> Int -> Int
-point slope rowIndex rowLength = mod (slope * rowIndex) (rowLength)
-
 isTree :: Slope -> Int -> Row -> Bool
-isTree slope rowIndex row = (row !! (point slope rowIndex (length row))) == '#'
+isTree slope rowIndex row = (row !! index) == '#'
+  where index = mod (slope * rowIndex) (length row)
 
 calculateTrees :: Slope -> Map -> Int
 calculateTrees slope treeMap = length (filter (\(rowIndex, row) -> isTree slope rowIndex row) indexedTreeMap)
